@@ -1,0 +1,6 @@
+{
+    "bamfile": {
+        "class": "File",
+        "path": "../test_files/test.bam"
+    }
+}
