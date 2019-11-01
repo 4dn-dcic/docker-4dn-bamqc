@@ -2,7 +2,8 @@
 # Creates bamqc for annotated bam files
 
 INPUT=$1
-OUTDIR=$2
+CHROMSIZES=$2
+OUTDIR=$3
 
 FILE_BASE=$(basename $INPUT)
 FILE_NAME=${FILE_BASE%.*}
@@ -12,4 +13,4 @@ then
 	mkdir $OUTDIR
 fi
 
-python3 /usr/local/bin/get_bamqc.py $INPUT $OUTDIR $FILE_NAME
+python3 /usr/local/bin/get_bamqc.py $INPUT $CHROMSIZES $OUTDIR $FILE_NAME

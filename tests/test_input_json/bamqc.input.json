@@ -2,5 +2,9 @@
     "bamfile": {
         "class": "File",
         "path": "../test_files/test.bam"
+    },
+    "chromsizes": {
+        "class": "File",
+        "path": "../test_files/test.chrom.sizes"
     }
 }

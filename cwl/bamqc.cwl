@@ -16,10 +16,15 @@ inputs:
    inputBinding:
     position: 1
 
+  chromsizes:
+    type: File
+    inputBinding:
+      position: 2
+
   outdir:
    type: string
    inputBinding:
-    position: 2
+    position: 3
    default: "."
 
 outputs:
