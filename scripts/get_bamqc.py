@@ -1,6 +1,7 @@
 import pysam
 import json
 import click
+import collections
 
 
 @click.command()
@@ -17,7 +18,7 @@ def main(infile, chromsizes, outdir, filename):
 
     prev_read = None
     prev_read_chrm = None
-    pairs_tags_dict = {}  # Or just have the dictionary with all flags (depends on qc)
+    pairs_tags_dict = collections.OrderedDict()
     pairs_tags_dict['Minor Contigs'] = 0
     pairs_tag_list = []
     main_chroms = [x for x in range(len(chrmsizes))]
@@ -47,7 +48,7 @@ def main(infile, chromsizes, outdir, filename):
             pairs_tags_dict['Minor Contigs'] = pairs_tags_dict['Minor Contigs'] + 1
 
     # QC Report
-    report_dict = {}
+    report_dict = collections.OrderedDict()
     total_reads = 0
     rescued_chimeras = 0
     unmmapped = 0
