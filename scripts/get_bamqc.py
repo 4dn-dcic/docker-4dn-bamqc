@@ -21,33 +21,33 @@ def main(infile, chromsizes, outdir, filename):
     pairs_tags_dict['Minor Contigs'] = 0
     pairs_tag_list = []
     main_chroms = [x for x in range(len(chrmsizes))]
-    ignored_read = False
+    prev_ignored_read = False
 
     for read in bamfile:
         pairs_tag = read.get_tag('Yt')
         chrm = read.reference_id
         if pairs_tag not in pairs_tags_dict.keys():
             pairs_tags_dict[pairs_tag] = 0
-        if (pairs_tag == "UU" or pairs_tag == "RU" or pairs_tag == "UR") and (chrm not in main_chroms):
-            ignored_read = True
 
         if prev_read is not None and read.query_name != prev_read:
             # This is a new read id, Add the information of the previous read id
             assert (len(set(pairs_tag_list)) == 1), "Read %s has more than one pairs flag " % prev_read
             pairs_tags_dict[pairs_tag_list[0]] = pairs_tags_dict[pairs_tag_list[0]] + 1
 
-            if ignored_read:
+            if prev_ignored_read:
                 pairs_tags_dict['Minor Contigs'] = pairs_tags_dict['Minor Contigs'] + 1
             pairs_tag_list = []
-            ignored_read = False
+            prev_ignored_read = False
 
         pairs_tag_list.append(pairs_tag)
         prev_read = read.query_name
+        if (pairs_tag == "UU" or pairs_tag == "RU" or pairs_tag == "UR") and (chrm not in main_chroms):
+            prev_ignored_read = True
 
     if len(pairs_tag_list) != 0:
         assert (len(set(pairs_tag_list)) == 1), "Read %s has more than one pairs flag " % prev_read
         pairs_tags_dict[pairs_tag_list[0]] = pairs_tags_dict[pairs_tag_list[0]] + 1
-        if ignored_read:
+        if prev_ignored_read:
             pairs_tags_dict['Minor Contigs'] = pairs_tags_dict['Minor Contigs'] + 1
 
     # QC Report
