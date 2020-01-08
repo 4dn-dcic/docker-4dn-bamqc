@@ -20,13 +20,13 @@ def main(infile, chromsizes, outdir, filename):
     pairs_tags_count_dict = collections.OrderedDict()
     pairs_tags_count_dict['Minor Contigs'] = 0
     pairs_tag_list = []
-    main_chroms = [x for x in range(len(chrmsizes))]  # the chromsizes file
+    main_chroms = [a_line.split('\t')[0] for a_line in chrmsizes]  # the chromsizes file
     lines_same_id = []
 
     for bamline in bamfile:
         # Getting bamline information
         bamline_info = {'id': bamline.query_name,
-                        'chrm': bamline.reference_id,
+                        'chrm': bamline.reference_name,
                         'tag': bamline.get_tag('Yt'),
                         'secondary_alignment': bamline.is_secondary}
 
