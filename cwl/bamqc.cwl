@@ -6,7 +6,7 @@ cwlVersion: v1.0
 
 requirements:
 - class: DockerRequirement
-  dockerPull: "4dndcic/4dn-bamqc:v2"
+  dockerPull: "4dndcic/4dn-bamqc:v3"
 
 - class: "InlineJavascriptRequirement"
 
