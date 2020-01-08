@@ -6,7 +6,7 @@ cwlVersion: v1.0
 
 requirements:
 - class: DockerRequirement
-  dockerPull: "4dndcic/4dn-bamqc:v1"
+  dockerPull: "4dndcic/4dn-bamqc:v2"
 
 - class: "InlineJavascriptRequirement"
 
@@ -16,10 +16,15 @@ inputs:
    inputBinding:
     position: 1
 
+  chromsizes:
+    type: File
+    inputBinding:
+      position: 2
+
   outdir:
    type: string
    inputBinding:
-    position: 2
+    position: 3
    default: "."
 
 outputs:
