@@ -50,23 +50,22 @@ def main(infile, chromsizes, outdir, filename):
                 subset_value = 0 # how many lines correspond to a single read for each type of flag, use this info to keep track of minor contigs
                 if tag_group[0]['tag'] == "UU":  # count minor contigs for this flag type
                     track_minor_contigs = True
-                    subset_counter = 0
-                    subset_value = 2  # a read that has the UU flag is represented by 2 lines only. 
+                    subset_counter = 2
+                    subset_value = 2  # a read that has the UU flag is represented by 2 lines only.
                     is_minor_contig = False
                 elif (tag_group[0]['tag'] == "RU" or tag_group[0]['tag'] == "UR"):  # count minor contigs for this flag type
                     track_minor_contigs = True
-                    subset_value = 3  #  a read that has the RU and UR flag is represented by 3 lines only.
-                    subset_counter = 0
+                    subset_value = 3  # a read that has the RU and UR flag is represented by 3 lines only.
+                    subset_counter = 3
                     is_minor_contig = False
 
                 for i, a_line in enumerate(tag_group):
-                    if not a_line['secondary_alignment']: # a read has only 2 primary alignments, the rest are secondary. 
+                    if not a_line['secondary_alignment']: # a read has only 2 primary alignments, the rest are secondary.
                         read_num = read_num + 1
 
                     # for UU, UR and RU flags check if a line within a read is mapped to a non main chromosome,
                     # this count will be added to minor contigs count and removed from filtered reads count in the final output
                     if track_minor_contigs:
-                        subset_counter = subset_value
 
                         if a_line['chrm'] not in main_chroms:
                             is_minor_contig = True
@@ -102,20 +101,19 @@ def main(infile, chromsizes, outdir, filename):
             subset_value = 0
             if tag_group[0]['tag'] == "UU":
                 track_minor_contigs = True
-                subset_counter = 0
+                subset_counter = 2
                 subset_value = 2
                 is_minor_contig = False
             elif (tag_group[0]['tag'] == "RU" or tag_group[0]['tag'] == "UR"):
                 track_minor_contigs = True
                 subset_value = 3
-                subset_counter = 0
+                subset_counter = 3
                 is_minor_contig = False
 
             for i, a_line in enumerate(tag_group):
                 if not a_line['secondary_alignment']:
                     read_num = read_num + 1
                 if track_minor_contigs:
-                    subset_counter = subset_value
 
                     if a_line['chrm'] not in main_chroms:
                         is_minor_contig = True
